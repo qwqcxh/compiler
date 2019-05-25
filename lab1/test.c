@@ -4,6 +4,7 @@ int a=10;
  int main(){
     int i;
     int x=strtol(a,NULL,16);
+    char a[30]="hello world";
     f(x);
     x=x-9;
     x=a+b*(1+3);
