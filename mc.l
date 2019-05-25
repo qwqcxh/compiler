@@ -7,8 +7,8 @@ YYSTYPE yylval;
 %option yylineno
 /*如下依次为注释、常量、关键字、标识符、界符、运算符的词法规则*/
 %%
-"/*".*"*/"   {}
-"//".*$      {}
+"/*".*"*/"   {printf("Comment\n");}
+"//".*       {printf("Comment\n");}
 
 0[0-7]+      {yylval.type_int=strtol(yytext,NULL,8);printf("%d\n",yylval.type_int);return INT;}
 [0-9]+       {yylval.type_int=atoi(yytext);printf("%d\n",yylval.type_int);return INT;}
@@ -49,7 +49,12 @@ YYSTYPE yylval;
 "[" |
 "]" |
 "!" {printf("%c\n",yytext[0]);return yytext[0];}
-">"|"<"|">="|"<="|"=="|"!=" {strcpy(yylval.type_id, yytext);printf("%s\n",yylval.type_id);return RELOP;}
+">" {strcpy(yylval.type_id, yytext);printf("%s\n",yylval.type_id);return GR;}
+"<" {strcpy(yylval.type_id, yytext);printf("%s\n",yylval.type_id);return LS;}
+">=" {strcpy(yylval.type_id, yytext);printf("%s\n",yylval.type_id);return GE;}
+"<=" {strcpy(yylval.type_id, yytext);printf("%s\n",yylval.type_id);return LE;}
+"==" {strcpy(yylval.type_id, yytext);printf("%s\n",yylval.type_id);return EQ;}
+"!=" {strcpy(yylval.type_id, yytext);printf("%s\n",yylval.type_id);return NE;}
 "&&"   {printf("AND\n");return AND;}
 "||"   {printf("OR\n");return OR;}
  

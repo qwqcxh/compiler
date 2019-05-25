@@ -59,8 +59,14 @@
      BREAK = 275,
      CONTINUE = 276,
      DEFAULT = 277,
-     UMINUS = 278,
-     LOWER_THEN_ELSE = 279
+     GR = 278,
+     LS = 279,
+     GE = 280,
+     LE = 281,
+     EQ = 282,
+     NE = 283,
+     UMINUS = 284,
+     LOWER_THEN_ELSE = 285
    };
 #endif
 
@@ -82,7 +88,7 @@ typedef union YYSTYPE
 
 
 /* Line 1676 of yacc.c  */
-#line 86 "mc.tab.h"
+#line 92 "mc.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
