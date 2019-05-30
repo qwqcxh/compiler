@@ -44,7 +44,7 @@ void yyerror(const char* fmt, ...);
 %%
 
 program:
-    declarations                                 {puts("reduce1");$$=$1;display($1,0);}
+    declarations                                 {puts("reduce1");$$=newast(PROG,$1,NULL);display($1,0);}
     ;
 
 declarations:

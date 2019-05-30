@@ -44,7 +44,7 @@ void yyerror(const char* fmt, ...);
 %%
 
 program:
-    declarations                                 {puts("reduce1");$$=$1;display($1,0);}
+    declarations                                 {puts("reduce1");$$=newast(PROG,$1,NULL);display($1,0);semantic($$);}
     ;
 
 declarations:
@@ -129,7 +129,7 @@ exp: exp '=' exp                                {puts("reduce40");$$=newast(ASSI
     | '-' exp %prec UMINUS                      {puts("reduce49");$$=newast(UMINUS_NO,$2,NULL);}
     | '!' exp                                   {puts("reduce50");$$=newast(NOT,$2,NULL);}
     | ID '(' args_list ')'                      {puts("reduce51");$$=newfun(FUN_CALL,$1,$3);}
-    | ID '[' INT ']'                            {puts("reduce52");$$=newele(ELE_NO,$1,$3);}
+    | ID '[' exp ']'                            {puts("reduce52");$$=newele(ELE_NO,$1,$3);}
     | ID                                        {puts("reduce53");$$=newnum(ID_NO);strcpy(((struct num*)$$)->numval.string,$1);}
     | CHAR                                      {puts("reduce54");$$=newnum(CHAR_NO);((struct num*)$$)->numval.ch=$1;}
     | STRING                                    {puts("reduce55");$$=newnum(STRING_NO);strcpy(((struct num*)$$)->numval.string,$1);}          

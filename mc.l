@@ -58,6 +58,7 @@ YYSTYPE yylval;
 "&&"   {printf("AND\n");return AND;}
 "||"   {printf("OR\n");return OR;}
  
-[ \t\r\n]          {}   
+[ \t\r]          {}
+[\n]             {yylineno++;}   
 .			{printf("Error type A :Mysterious character \"%s\"\n\t at Line %d\n",yytext,yylineno);}
 %%

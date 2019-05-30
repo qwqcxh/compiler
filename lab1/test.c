@@ -5,6 +5,7 @@ int a=10;
     int i;
     int x=strtol(a,NULL,16);
     char a[30]="hello world";
+    i=a[10];
     f(x);
     x=x-9;
     x=a+b*(1+3);

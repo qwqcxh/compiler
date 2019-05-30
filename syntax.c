@@ -18,7 +18,7 @@ void printtype(int typenum){
         default:printf("unknown type! %d",typenum);break;
     }
 }
-void* newdec(int nodetype,char*type,void *l,void *r){
+ast* newdec(int nodetype,char*type,void *l,void *r){
     struct dec* dec=(struct dec*)malloc(sizeof(struct dec));
     dec->nodetype=nodetype;
     if(type) dec->type=typetoint(type);
@@ -26,10 +26,10 @@ void* newdec(int nodetype,char*type,void *l,void *r){
     dec->r=r;
     //debug
     //puts("newdec finished!");
-    return dec;
+    return (ast*)dec;
 }
 
-void* newvarinitlist(int nodetype,char*id,int idx,char*string,void*l,void*r){
+ast* newvarinitlist(int nodetype,char*id,int idx,char*string,void*l,void*r){
     struct var_init* pvarinit=(struct var_init*)malloc(sizeof(struct var_init));
     pvarinit->nodetype=nodetype;
     //debug
@@ -40,10 +40,10 @@ void* newvarinitlist(int nodetype,char*id,int idx,char*string,void*l,void*r){
     pvarinit->r=r;
     //
     //puts("newvarinitlist finished!");
-    return pvarinit;
+    return (ast*)pvarinit;
 }
 
-void* newfundec(int nodetype,char*returnid,char*id,void*l,void*r){
+ast* newfundec(int nodetype,char*returnid,char*id,void*l,void*r){
     struct fun* pfun=(struct fun*)malloc(sizeof(struct fun));
     pfun->nodetype=nodetype;
     pfun->returntype=typetoint(returnid);
@@ -52,10 +52,10 @@ void* newfundec(int nodetype,char*returnid,char*id,void*l,void*r){
     pfun->r=r;
     //
     //puts("newfundec finished!");
-    return pfun;
+    return (ast*)pfun;
 }
 
-void* newparam(int nodetype,char*datatypeid,char*id,void*l){
+ast* newparam(int nodetype,char*datatypeid,char*id,void*l){
     struct param* pparam=(struct param*)malloc(sizeof(struct param));
     pparam->nodetype=nodetype;
     pparam->datatypeid=typetoint(datatypeid);
@@ -63,20 +63,20 @@ void* newparam(int nodetype,char*datatypeid,char*id,void*l){
     pparam->l=l;
     //
     //puts("newparam finished!");
-    return pparam;
+    return (ast*)pparam;
 }
 
-void* newast(int nodetype,void* l,void* r){
+ast* newast(int nodetype,void* l,void* r){
     struct ast*past=(struct ast*)malloc(sizeof(struct ast));
     past->nodetype=nodetype;
     past->l=l;
     past->r=r;
     //
     //puts("newast finished!");
-    return past;
+    return (ast*)past;
 }
 
-void* newcondition(int nodetype,void*a,void*b,void*c,void*d){
+ast* newcondition(int nodetype,void*a,void*b,void*c,void*d){
     struct condition* pif=(struct condition*)malloc(sizeof(struct condition));
     pif->nodetype=nodetype;
     pif->a=a;
@@ -85,35 +85,35 @@ void* newcondition(int nodetype,void*a,void*b,void*c,void*d){
     pif->d=d;
     //
     //puts("newcondition finished!");
-    return pif;
+    return (ast*)pif;
 }
 
-void* newnum(int nodetype){
+ast* newnum(int nodetype){
     struct num* pnum=(struct num*)malloc(sizeof(struct num));
     pnum->nodetype=nodetype;
     //
     //puts("newnum finished!");
-    return pnum;
+    return (ast*)pnum;
 }
 
-void* newfun(int nodetype,char*id,void*l){
+ast* newfun(int nodetype,char*id,void*l){
     struct fun*pfun=(struct fun*)malloc(sizeof(struct fun));
     pfun->nodetype=nodetype;
     if(id)strcpy(pfun->id,id);
     pfun->l=l;
     //
     //puts("newfun finised!");
-    return pfun;
+    return (ast*)pfun;
 }
 
-void* newele(int nodetype,char*id,int idx){
+ast* newele(int nodetype,char*id,int idx){
     struct ele*pele=(struct ele*)malloc(sizeof(struct ele));
     pele->nodetype=nodetype;
     if(id)strcpy(pele->id,id);
     pele->idx=idx;
     //
     //puts("newele finished!");
-    return pele;
+    return (ast*)pele;
 }
 
 void display(void* node,int pos){

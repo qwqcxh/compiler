@@ -1,23 +1,17 @@
-int f();
-int a=10;
-
- int main(){
-    int i;
-    int x=strtol(a,NULL,16);
-    f(x);
-    x=x-9;
-    x=a+b*(1+3);
-    if(a>3) a=a+1;
-    else a=a-1;
-    for(i=0;i<10&&a<9||b>3;i=i+1) ;
-    switch (a*10)
+int x=10;
+int main(){
+    int a=3;
+    int a=4;
+    switch (a)
     {
-    case d:
-        /* code */
+    case 1:
+        printf("%d\n",a);
         break;
-    case e:
-    default:
-        printf("hello",world);
+    case 2:
+        printf("%d\n",a);
+        break;
+    case 3:
+        printf("%d\n",a);
         break;
     }
     return 0;
