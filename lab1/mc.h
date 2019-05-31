@@ -31,6 +31,7 @@ struct seman_info{
     int level;
     int addr;
     int size;
+    int paranum;  //记录函数形参个数
     int stmt_type;//语句类型或者函数返回值类型
 };
 
@@ -83,8 +84,8 @@ typedef struct condition{
 typedef struct ele{
     int nodetype;
     struct seman_info sem;
-    char id[30];
     ast* idx;
+    char id[30];
 }ele;
 
 typedef struct num{
@@ -101,11 +102,13 @@ typedef struct symbol{
     int level;
     int addr;
     int size;
+    int paramnum;//形参个数
+    int* paratype;//记录各个形参类型
 } symbol;
 extern symbol symtab[MAXLEN];
 extern int symidx;
 
-int lookup(char*name,int level);
+int lookup(char*name);
 int typetoint(char*type);
 ast* newdec(int nodetyp,char*type,void*l,void*r);
 ast* newvarinitlist(int nodetype,char*id,int idx,char*string,void*l,void*r);

@@ -726,27 +726,27 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 YY_RULE_SETUP
 #line 10 "mc.l"
-{printf("Comment\n");}
+{/*printf("Comment\n");*/}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
 #line 11 "mc.l"
-{printf("Comment\n");}
+{/*printf("Comment\n");*/}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
 #line 13 "mc.l"
-{yylval.type_int=strtol(yytext,NULL,8);printf("%d\n",yylval.type_int);return INT;}
+{yylval.type_int=strtol(yytext,NULL,8);return INT;}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
 #line 14 "mc.l"
-{yylval.type_int=atoi(yytext);printf("%d\n",yylval.type_int);return INT;}
+{yylval.type_int=atoi(yytext);return INT;}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
 #line 15 "mc.l"
-{yylval.type_int=strtol(yytext,NULL,16);printf("%d\n",yylval.type_int);return INT;}
+{yylval.type_int=strtol(yytext,NULL,16);return INT;}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
@@ -756,82 +756,82 @@ YY_RULE_SETUP
 case 7:
 YY_RULE_SETUP
 #line 17 "mc.l"
-{strcpy(yylval.type_id,yytext);printf("%s\n",yytext);return STRING;}
+{strcpy(yylval.type_id,yytext);return STRING;}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
 #line 18 "mc.l"
-{yylval.type_char=yytext[1];printf("%c\n",yylval.type_char);return CHAR;}
+{yylval.type_char=yytext[1];return CHAR;}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
 #line 20 "mc.l"
-{strcpy(yylval.type_id,yytext);printf("KEYWORD char\n");return TYPE;}
+{strcpy(yylval.type_id,yytext);return TYPE;}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
 #line 21 "mc.l"
-{strcpy(yylval.type_id,yytext);printf("KEYWORD int\n");return TYPE;}
+{strcpy(yylval.type_id,yytext);return TYPE;}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
 #line 22 "mc.l"
-{strcpy(yylval.type_id,yytext);printf("KEYWORD float\n");return TYPE;}
+{strcpy(yylval.type_id,yytext);return TYPE;}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
 #line 23 "mc.l"
-{printf("KEYWORD IF\n");return IF;}
+{return IF;}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
 #line 24 "mc.l"
-{printf("KEYWORD ELSE\n");return ELSE;}
+{return ELSE;}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
 #line 25 "mc.l"
-{printf("KEYWORD SWITCH\n");return SWITCH;}
+{return SWITCH;}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
 #line 26 "mc.l"
-{printf("KEYWORD CASE\n");return CASE;}
+{return CASE;}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
 #line 27 "mc.l"
-{printf("KEYOWRD WHILE\n");return WHILE;}
+{return WHILE;}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
 #line 28 "mc.l"
-{printf("KEYWORD FOR");return FOR;}
+{return FOR;}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
 #line 29 "mc.l"
-{printf("KEYWORD BREAK");return BREAK;}
+{return BREAK;}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
 #line 30 "mc.l"
-{printf("KEYWORD CONTINUE");return CONTINUE;}
+{return CONTINUE;}
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
 #line 31 "mc.l"
-{printf("KEYWORD default");return DEFAULT;}
+{return DEFAULT;}
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
 #line 32 "mc.l"
-{printf("KEYWORD RETURN");return RETURN;}
+{return RETURN;}
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
 #line 34 "mc.l"
-{strcpy(yylval.type_id,  yytext);printf("%s\n",yytext); return ID;}
+{strcpy(yylval.type_id,  yytext);return ID;}
 	YY_BREAK
 case 23:
 #line 38 "mc.l"
@@ -864,47 +864,47 @@ case 36:
 case 37:
 YY_RULE_SETUP
 #line 51 "mc.l"
-{printf("%c\n",yytext[0]);return yytext[0];}
+{return yytext[0];}
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
 #line 52 "mc.l"
-{strcpy(yylval.type_id, yytext);printf("%s\n",yylval.type_id);return GR;}
+{strcpy(yylval.type_id, yytext);return GR;}
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
 #line 53 "mc.l"
-{strcpy(yylval.type_id, yytext);printf("%s\n",yylval.type_id);return LS;}
+{strcpy(yylval.type_id, yytext);return LS;}
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
 #line 54 "mc.l"
-{strcpy(yylval.type_id, yytext);printf("%s\n",yylval.type_id);return GE;}
+{strcpy(yylval.type_id, yytext);return GE;}
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
 #line 55 "mc.l"
-{strcpy(yylval.type_id, yytext);printf("%s\n",yylval.type_id);return LE;}
+{strcpy(yylval.type_id, yytext);return LE;}
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
 #line 56 "mc.l"
-{strcpy(yylval.type_id, yytext);printf("%s\n",yylval.type_id);return EQ;}
+{strcpy(yylval.type_id, yytext);return EQ;}
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
 #line 57 "mc.l"
-{strcpy(yylval.type_id, yytext);printf("%s\n",yylval.type_id);return NE;}
+{strcpy(yylval.type_id, yytext);return NE;}
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
 #line 58 "mc.l"
-{printf("AND\n");return AND;}
+{return AND;}
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
 #line 59 "mc.l"
-{printf("OR\n");return OR;}
+{return OR;}
 	YY_BREAK
 case 46:
 YY_RULE_SETUP

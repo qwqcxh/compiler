@@ -124,7 +124,7 @@ void display(void* node,int pos){
         case EXTERN_VAR_LIST:
         case EXTERN_VAR:
             //debug
-            // puts("1");
+            //puts("1");
             printf("%*c全局变量声明：\n%*c类型：",pos,' ',pos+3,' ');
             printtype(((struct dec*)node)->type);putchar('\n');
             printf("%*c变量列表：\n",pos+3,' ');
@@ -135,7 +135,7 @@ void display(void* node,int pos){
         case EXTERN_FUN_LIST:
         case EXTERN_FUN:
             //debug
-            // puts("2");
+            //puts("2");
             printf("%*c函数声明或定义：\n",pos,' ');
             display(((struct dec*)node)->l,pos+3);
             if(((struct dec*)node)->r)
@@ -143,7 +143,7 @@ void display(void* node,int pos){
             break;
         case VAR_LIST:
         case VAR_NO:
-            // puts("3");
+            //puts("3");
             printf("%*c%s\n",pos,' ',(((struct var_init*)node)->id));
             if(((struct var_init*)node)->l)
                 display(((struct var_init*)node)->l,pos);
@@ -151,7 +151,7 @@ void display(void* node,int pos){
         case VAR_INIT_LIST:
         case VAR_INIT:
             //debug
-            // puts("4");
+            //puts("4");
             printf("%*c%s = \n",pos,' ',(((struct var_init*)node)->id));
             display(((struct var_init*)node)->l,pos+3);
             if(((struct var_init*)node)->r)
@@ -160,8 +160,8 @@ void display(void* node,int pos){
         case ARRAY_LIST:
         case ARRAY_NO:
             //debug
-            // puts("5");
-            printf("%*c%s [ %d ] \n",pos,' ',(((struct var_init*)node)->idx));
+            //puts("5");
+            printf("%*c%s [ %d ] \n",pos,' ',(((var_init*)node)->id),(((struct var_init*)node)->idx));
             if(((struct var_init*)node)->l)
                 display(((struct var_init*)node)->l,pos);
             break;
@@ -175,7 +175,7 @@ void display(void* node,int pos){
             break;
         case FUN_DEC:
             //debug
-            // puts("7");
+            //puts("7");
             printf("%*c返回值 ",pos,' ');
             printtype(((struct fun*)node)->returntype);
             printf("函数名 %s 形参列表：\n",((struct fun*)node)->id);
@@ -187,7 +187,7 @@ void display(void* node,int pos){
             break;
         case PARAM:
             //debug
-            // puts("8");
+            //puts("8");
             printf("%*c",pos,' ');
             printtype(((struct param*)node)->datatypeid);
             printf("%s\n",(((struct param*)node)->id));
@@ -196,13 +196,13 @@ void display(void* node,int pos){
             break;
         case COMPSTMT:
             //debug
-            // puts("9");
+            //puts("9");
             display(((struct ast*)node)->l,pos);
             display(((struct ast*)node)->r,pos);
             break;
         case INNER_VAR:
             //debug
-            // puts("10");
+            //puts("10");
             printf("%*c",pos,' ');
             printtype(((struct dec*)node)->type);
             printf("变量列表：\n");
@@ -211,29 +211,29 @@ void display(void* node,int pos){
             break;
         case STMTLIST:
             //debug
-            // puts("11");
+            //puts("11");
             display(((struct ast*)node)->l,pos);
             display(((struct ast*)node)->r,pos);
             break;
         case RETURN_NO:
             //debug
-            // puts("12");
+            //puts("12");
             printf("%*cRETURN \n",pos,' ');
             display(((struct ast*)node)->l,pos+3);
             break;
         case BREAK_NO:
             //debug
-            // puts("13");
+            //puts("13");
             printf("%*cBREAK \n",pos,' ');
             break;
         case CONTINUE_NO:
             //debug
-            // puts("14");
+            //puts("14");
             printf("%*cCONTINUE\n",pos,' ');
             break;
         case IF_NO:
             //debug
-            // puts("15");
+            //puts("15");
             printf("%*cIF:\n",pos,' ');
             display(((struct condition*)node)->a,pos+3);
             printf("%*cTHEN:\n",pos,' ');
@@ -245,7 +245,7 @@ void display(void* node,int pos){
             break;
         case SWITCH_NO:
             //debug
-            // puts("16");
+            //puts("16");
             printf("%*cSWITCH:\n",pos,' ');
             display(((struct condition*)node)->a,pos+3);
             display(((struct condition*)node)->b,pos);
@@ -253,7 +253,7 @@ void display(void* node,int pos){
             break;
         case WHILE_NO:
             //debug
-            // puts("17");
+            //puts("17");
             printf("%*cWHILE:\n",pos,' ');
             display(((struct ast*)node)->l,pos+3);
             printf("%*cDO:\n",pos,' ');
@@ -261,7 +261,7 @@ void display(void* node,int pos){
             break;
         case FOR_NO:
             //debug
-            // puts("18");
+            //puts("18");
             printf("%*cFOR:\n",pos,' ');
             display(((struct condition*)node)->a,pos+3);
             printf("%*cCONDITION:\n",pos,' ');
@@ -273,7 +273,7 @@ void display(void* node,int pos){
             break;
         case CASE_NO:
             //debug
-            // puts("19");
+            //puts("19");
             printf("%*cCASE:\n",pos,' ');
             display(((struct condition*)node)->a,pos+3);
             printf("%*cDO:\n",pos+3,' ');
@@ -283,116 +283,116 @@ void display(void* node,int pos){
             break;
         case DEFAULT_NO:
             //debug
-            // puts("20");
+            //puts("20");
             printf("%*cDEFAULT:\n",pos,' ');
             display(((struct ast*)node)->l,pos+3);
             break;
         case ASSIGN:
             //debug
-            // puts("21");
+            //puts("21");
             printf("%*c赋值表达式=\n",pos,' ');
             display(((struct ast*)node)->l,pos+3);
             display(((struct ast*)node)->r,pos+3);
             break;
         case AND_NO:
             //debug
-            // puts("22");
+            //puts("22");
             printf("%*c与表达式&&\n",pos,' ');
             display(((struct ast*)node)->l,pos+3);
             display(((struct ast*)node)->r,pos+3);
             break;
         case OR_NO:
                 //debug
-            // puts("23");
+            //puts("23");
             printf("%*c或表达式||\n",pos,' ');
             display(((struct ast*)node)->l,pos+3);
             display(((struct ast*)node)->r,pos+3);
             break; 
         case GR_NO:
                     //debug
-            // puts("24");
+            //puts("24");
             printf("%*c关系表达式>\n",pos,' ');
             display(((struct ast*)node)->l,pos+3);
             display(((struct ast*)node)->r,pos+3);
             break;  
         case LS_NO:
                     //debug
-            // puts("25");
+            //puts("25");
             printf("%*c关系表达式<\n",pos,' ');
             display(((struct ast*)node)->l,pos+3);
             display(((struct ast*)node)->r,pos+3);
             break;
         case GE_NO:
                     //debug
-            // puts("26");
+            //puts("26");
             printf("%*c关系表达式>=\n",pos,' ');
             display(((struct ast*)node)->l,pos+3);
             display(((struct ast*)node)->r,pos+3);
             break;
         case LE_NO:
                     //debug
-            // puts("27");
+            //puts("27");
             printf("%*c关系表达式<=\n",pos,' ');
             display(((struct ast*)node)->l,pos+3);
             display(((struct ast*)node)->r,pos+3);
             break;
         case EQ_NO:
                     //debug
-            // puts("28");
+            //puts("28");
             printf("%*c关系表达式==\n",pos,' ');
             display(((struct ast*)node)->l,pos+3);
             display(((struct ast*)node)->r,pos+3);
             break;
         case NE_NO:
                     //debug
-            // puts("29");
+            //puts("29");
             printf("%*c关系表达式!=\n",pos,' ');
             display(((struct ast*)node)->l,pos+3);
             display(((struct ast*)node)->r,pos+3);
             break;
         case ADD:
                     //debug
-            // puts("30");
+            //puts("30");
             printf("%*c算术表达式+\n",pos,' ');
             display(((struct ast*)node)->l,pos+3);
             display(((struct ast*)node)->r,pos+3);
             break;
         case MINUS:
                     //debug
-            // puts("31");
+            //puts("31");
             printf("%*c算术表达式-\n",pos,' ');
             display(((struct ast*)node)->l,pos+3);
             display(((struct ast*)node)->r,pos+3);
             break;
         case MUL:
                     //debug
-            // puts("32");
+            //puts("32");
             printf("%*c算数表达式*\n",pos,' ');
             display(((struct ast*)node)->l,pos+3);
             display(((struct ast*)node)->r,pos+3);
             break;
         case DIV:
                     //debug
-            // puts("33");
+            //puts("33");
             printf("%*c算术表达式/\n",pos,' ');
             display(((struct ast*)node)->l,pos+3);
             display(((struct ast*)node)->r,pos+3);
             break;
         case UMINUS_NO:
                     //debug
-            // puts("34");
+            //puts("34");
             printf("%*c单目-\n",pos,' ');
             display(((struct ast*)node)->l,pos+3);
             break;
         case NOT:
                     //debug
-            // puts("35");
+            //puts("35");
             printf("%*c关系表达式!\n",pos,' ');
             display(((struct ast*)node)->l,pos+3);
             break;
         case FUN_CALL:
                     //debug
-            // puts("36");
+            //puts("36");
             printf("%*c函数名 ",pos,' ');
             printf("%s",((struct fun*)node)->id);
             printf("\n%*c实际参数：\n",pos,' ');
@@ -400,45 +400,45 @@ void display(void* node,int pos){
             break;
         case ELE_NO:
                     //debug
-            // puts("37");
+            //puts("37");
             printf("%*c%s 数组索引\n",pos,' ',((ele*)node)->id);
             display((((ele*)node)->idx),pos+3);
             break;
         case ID_NO:
                     //debug
-            // puts("38");
+            //puts("38");
             printf("%*c%s\n",pos,' ',(((num*)node)->numval.string));
             break;
         case CHAR_NO:
                     //debug
-            // puts("39");
+            //puts("39");
             printf("%*c字符常量%c\n",pos,' ',(((num*)node)->numval.ch));
             break;
         case STRING_NO:
                     //debug
-            // puts("40");
+            //puts("40");
             printf("%*c字符串常量%s\n",pos,' ',(((num*)node)->numval.string));
             break;
         case INT_NO:
                     //debug
-            // puts("41");
+            //puts("41");
             printf("%*c整数常量%d\n",pos,' ',(((num*)node)->numval.intval));
             break;
         case FLOAT_NO:
                     //debug
-            // puts("42");
+            //puts("42");
             printf("%*c浮点常量%f\n",pos,' ',(((num*)node)->numval.floatval));
             break;
         case ARGS:
                     //debug
-            // puts("43");
+            //puts("43");
             display(((ast*)node)->l,pos);
             if(((ast*)node)->r)
                 display(((ast*)node)->r,pos);
             break;
         default:
                     //debug
-            // puts("44");
+            //puts("44");
             printf("%d syntex error!!!",(((ast*)node)->nodetype));
     }
 }
