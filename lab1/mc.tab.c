@@ -79,10 +79,11 @@ extern char *yytext;
 extern FILE *yyin;
 int yylex();
 void yyerror(const char* fmt, ...);
+ast* ptree;
 
 
 /* Line 189 of yacc.c  */
-#line 86 "mc.tab.c"
+#line 87 "mc.tab.c"
 
 /* Enabling traces.  */
 #ifndef YYDEBUG
@@ -147,7 +148,7 @@ typedef union YYSTYPE
 {
 
 /* Line 214 of yacc.c  */
-#line 15 "mc.y"
+#line 16 "mc.y"
 
     char   type_char;
 	int    type_int;
@@ -158,7 +159,7 @@ typedef union YYSTYPE
 
 
 /* Line 214 of yacc.c  */
-#line 162 "mc.tab.c"
+#line 163 "mc.tab.c"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
@@ -183,7 +184,7 @@ typedef struct YYLTYPE
 
 
 /* Line 264 of yacc.c  */
-#line 187 "mc.tab.c"
+#line 188 "mc.tab.c"
 
 #ifdef short
 # undef short
@@ -501,13 +502,13 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    47,    47,    51,    52,    53,    54,    59,    60,    61,
-      62,    63,    64,    65,    66,    70,    71,    74,    75,    76,
-      80,    83,    84,    87,    88,    91,    92,    93,    94,    95,
-      96,    97,    98,    99,   100,   104,   105,   107,   108,   111,
-     112,   115,   116,   117,   118,   119,   120,   121,   122,   123,
-     124,   125,   126,   127,   128,   129,   130,   131,   132,   133,
-     134,   135,   136,   137,   140,   141,   142
+       0,    48,    48,    52,    53,    54,    55,    60,    61,    62,
+      63,    64,    65,    66,    67,    71,    72,    75,    76,    77,
+      81,    84,    85,    88,    89,    92,    93,    94,    95,    96,
+      97,    98,    99,   100,   101,   105,   106,   108,   109,   112,
+     113,   116,   117,   118,   119,   120,   121,   122,   123,   124,
+     125,   126,   127,   128,   129,   130,   131,   132,   133,   134,
+     135,   136,   137,   138,   141,   142,   143
 };
 #endif
 
@@ -1595,462 +1596,462 @@ yyreduce:
         case 2:
 
 /* Line 1455 of yacc.c  */
-#line 47 "mc.y"
-    {/*puts("reduce1");*/(yyval.node)=newast(PROG,(yyvsp[(1) - (1)].node),NULL);display((yyvsp[(1) - (1)].node),0);semantic((yyval.node));;}
+#line 48 "mc.y"
+    {puts("reduce1");(yyval.node)=newast(PROG,(yyvsp[(1) - (1)].node),NULL);display((yyvsp[(1) - (1)].node),0);ptree=(yyval.node);;}
     break;
 
   case 3:
 
 /* Line 1455 of yacc.c  */
-#line 51 "mc.y"
-    {/*puts("reduce2");*/(yyval.node)=newdec(EXTERN_VAR,(yyvsp[(1) - (3)].type_id),(yyvsp[(2) - (3)].node),NULL);;}
+#line 52 "mc.y"
+    {puts("reduce2");(yyval.node)=newdec(EXTERN_VAR,(yyvsp[(1) - (3)].type_id),(yyvsp[(2) - (3)].node),NULL);;}
     break;
 
   case 4:
 
 /* Line 1455 of yacc.c  */
-#line 52 "mc.y"
-    {/*puts("reduce3");*/(yyval.node)=newdec(EXTERN_FUN,NULL,(yyvsp[(1) - (1)].node),NULL);;}
+#line 53 "mc.y"
+    {puts("reduce3");(yyval.node)=newdec(EXTERN_FUN,NULL,(yyvsp[(1) - (1)].node),NULL);;}
     break;
 
   case 5:
 
 /* Line 1455 of yacc.c  */
-#line 53 "mc.y"
-    {/*puts("reduce4");*/(yyval.node)=newdec(EXTERN_VAR_LIST,(yyvsp[(1) - (4)].type_id),(yyvsp[(2) - (4)].node),(yyvsp[(4) - (4)].node));;}
+#line 54 "mc.y"
+    {puts("reduce4");(yyval.node)=newdec(EXTERN_VAR_LIST,(yyvsp[(1) - (4)].type_id),(yyvsp[(2) - (4)].node),(yyvsp[(4) - (4)].node));;}
     break;
 
   case 6:
 
 /* Line 1455 of yacc.c  */
-#line 54 "mc.y"
-    {/*puts("reduce5");*/(yyval.node)=newdec(EXTERN_FUN_LIST,NULL,(yyvsp[(1) - (2)].node),(yyvsp[(2) - (2)].node));;}
+#line 55 "mc.y"
+    {puts("reduce5");(yyval.node)=newdec(EXTERN_FUN_LIST,NULL,(yyvsp[(1) - (2)].node),(yyvsp[(2) - (2)].node));;}
     break;
 
   case 7:
 
 /* Line 1455 of yacc.c  */
-#line 59 "mc.y"
-    {/*puts("reduce6");*/(yyval.node)=newvarinitlist(VAR_NO,(yyvsp[(1) - (1)].type_id),-1,NULL,NULL,NULL);;}
+#line 60 "mc.y"
+    {puts("reduce6");(yyval.node)=newvarinitlist(VAR_NO,(yyvsp[(1) - (1)].type_id),-1,NULL,NULL,NULL);;}
     break;
 
   case 8:
 
 /* Line 1455 of yacc.c  */
-#line 60 "mc.y"
-    {/*puts("reduce7");*/(yyval.node)=newvarinitlist(VAR_INIT,(yyvsp[(1) - (3)].type_id),-1,NULL,(yyvsp[(3) - (3)].node),NULL);;}
+#line 61 "mc.y"
+    {puts("reduce7");(yyval.node)=newvarinitlist(VAR_INIT,(yyvsp[(1) - (3)].type_id),-1,NULL,(yyvsp[(3) - (3)].node),NULL);;}
     break;
 
   case 9:
 
 /* Line 1455 of yacc.c  */
-#line 61 "mc.y"
-    {/*puts("reduce8");*/(yyval.node)=newvarinitlist(ARRAY_NO,(yyvsp[(1) - (4)].type_id),(yyvsp[(3) - (4)].type_int),NULL,NULL,NULL);;}
+#line 62 "mc.y"
+    {puts("reduce8");(yyval.node)=newvarinitlist(ARRAY_NO,(yyvsp[(1) - (4)].type_id),(yyvsp[(3) - (4)].type_int),NULL,NULL,NULL);;}
     break;
 
   case 10:
 
 /* Line 1455 of yacc.c  */
-#line 62 "mc.y"
-    {/*puts("reduce9");*/(yyval.node)=newvarinitlist(ARRAY_INIT,(yyvsp[(1) - (6)].type_id),(yyvsp[(3) - (6)].type_int),(yyvsp[(6) - (6)].type_id),NULL,NULL);;}
+#line 63 "mc.y"
+    {puts("reduce9");(yyval.node)=newvarinitlist(ARRAY_INIT,(yyvsp[(1) - (6)].type_id),(yyvsp[(3) - (6)].type_int),(yyvsp[(6) - (6)].type_id),NULL,NULL);;}
     break;
 
   case 11:
 
 /* Line 1455 of yacc.c  */
-#line 63 "mc.y"
-    {/*puts("reduce10");*/(yyval.node)=newvarinitlist(VAR_LIST,(yyvsp[(1) - (3)].type_id),-1,NULL,(yyvsp[(3) - (3)].node),NULL);;}
+#line 64 "mc.y"
+    {puts("reduce10");(yyval.node)=newvarinitlist(VAR_LIST,(yyvsp[(1) - (3)].type_id),-1,NULL,(yyvsp[(3) - (3)].node),NULL);;}
     break;
 
   case 12:
 
 /* Line 1455 of yacc.c  */
-#line 64 "mc.y"
-    {/*puts("reduce11");*/(yyval.node)=newvarinitlist(VAR_INIT_LIST,(yyvsp[(1) - (5)].type_id),-1,NULL,(yyvsp[(3) - (5)].node),(yyvsp[(5) - (5)].node));;}
+#line 65 "mc.y"
+    {puts("reduce11");(yyval.node)=newvarinitlist(VAR_INIT_LIST,(yyvsp[(1) - (5)].type_id),-1,NULL,(yyvsp[(3) - (5)].node),(yyvsp[(5) - (5)].node));;}
     break;
 
   case 13:
 
 /* Line 1455 of yacc.c  */
-#line 65 "mc.y"
-    {/*puts("reduce12");*/(yyval.node)=newvarinitlist(ARRAY_LIST,(yyvsp[(1) - (6)].type_id),(yyvsp[(3) - (6)].type_int),NULL,(yyvsp[(6) - (6)].node),NULL);;}
+#line 66 "mc.y"
+    {puts("reduce12");(yyval.node)=newvarinitlist(ARRAY_LIST,(yyvsp[(1) - (6)].type_id),(yyvsp[(3) - (6)].type_int),NULL,(yyvsp[(6) - (6)].node),NULL);;}
     break;
 
   case 14:
 
 /* Line 1455 of yacc.c  */
-#line 66 "mc.y"
-    {/*puts("reduce13");*/(yyval.node)=newvarinitlist(ARRAY_INIT_LIST,(yyvsp[(1) - (8)].type_id),(yyvsp[(3) - (8)].type_int),(yyvsp[(6) - (8)].type_id),(yyvsp[(8) - (8)].node),NULL);;}
+#line 67 "mc.y"
+    {puts("reduce13");(yyval.node)=newvarinitlist(ARRAY_INIT_LIST,(yyvsp[(1) - (8)].type_id),(yyvsp[(3) - (8)].type_int),(yyvsp[(6) - (8)].type_id),(yyvsp[(8) - (8)].node),NULL);;}
     break;
 
   case 15:
 
 /* Line 1455 of yacc.c  */
-#line 70 "mc.y"
-    {/*puts("reduce14");*/(yyval.node)=newfundec(FUN_DEC,(yyvsp[(1) - (6)].type_id),(yyvsp[(2) - (6)].type_id),(yyvsp[(4) - (6)].node),NULL);;}
+#line 71 "mc.y"
+    {puts("reduce14");(yyval.node)=newfundec(FUN_DEC,(yyvsp[(1) - (6)].type_id),(yyvsp[(2) - (6)].type_id),(yyvsp[(4) - (6)].node),NULL);;}
     break;
 
   case 16:
 
 /* Line 1455 of yacc.c  */
-#line 71 "mc.y"
-    {/*puts("reduce15");*/(yyval.node)=newfundec(FUN_DEC,(yyvsp[(1) - (6)].type_id),(yyvsp[(2) - (6)].type_id),(yyvsp[(4) - (6)].node),(yyvsp[(6) - (6)].node));;}
+#line 72 "mc.y"
+    {puts("reduce15");(yyval.node)=newfundec(FUN_DEC,(yyvsp[(1) - (6)].type_id),(yyvsp[(2) - (6)].type_id),(yyvsp[(4) - (6)].node),(yyvsp[(6) - (6)].node));;}
     break;
 
   case 17:
 
 /* Line 1455 of yacc.c  */
-#line 74 "mc.y"
-    {/*puts("reduce16");*/(yyval.node)=NULL;;}
+#line 75 "mc.y"
+    {puts("reduce16");(yyval.node)=NULL;;}
     break;
 
   case 18:
 
 /* Line 1455 of yacc.c  */
-#line 75 "mc.y"
-    {/*puts("reduce17");*/(yyval.node)=newparam(PARAM,(yyvsp[(1) - (2)].type_id),(yyvsp[(2) - (2)].type_id),NULL);;}
+#line 76 "mc.y"
+    {puts("reduce17");(yyval.node)=newparam(PARAM,(yyvsp[(1) - (2)].type_id),(yyvsp[(2) - (2)].type_id),NULL);;}
     break;
 
   case 19:
 
 /* Line 1455 of yacc.c  */
-#line 76 "mc.y"
-    {/*puts("reduce18");*/(yyval.node)=newparam(PARAM,(yyvsp[(1) - (4)].type_id),(yyvsp[(2) - (4)].type_id),(yyvsp[(4) - (4)].node));;}
+#line 77 "mc.y"
+    {puts("reduce18");(yyval.node)=newparam(PARAM,(yyvsp[(1) - (4)].type_id),(yyvsp[(2) - (4)].type_id),(yyvsp[(4) - (4)].node));;}
     break;
 
   case 20:
 
 /* Line 1455 of yacc.c  */
-#line 80 "mc.y"
-    {/*puts("reduce19");*/(yyval.node)=newast(COMPSTMT,(yyvsp[(2) - (4)].node),(yyvsp[(3) - (4)].node));;}
+#line 81 "mc.y"
+    {puts("reduce19");(yyval.node)=newast(COMPSTMT,(yyvsp[(2) - (4)].node),(yyvsp[(3) - (4)].node));;}
     break;
 
   case 21:
 
 /* Line 1455 of yacc.c  */
-#line 83 "mc.y"
-    {/*puts("reduce20");*/(yyval.node)=NULL;;}
+#line 84 "mc.y"
+    {puts("reduce20");(yyval.node)=NULL;;}
     break;
 
   case 22:
 
 /* Line 1455 of yacc.c  */
-#line 84 "mc.y"
-    {/*puts("reduce21");*/(yyval.node)=newdec(INNER_VAR,(yyvsp[(1) - (4)].type_id),(yyvsp[(2) - (4)].node),(yyvsp[(4) - (4)].node));;}
+#line 85 "mc.y"
+    {puts("reduce21");(yyval.node)=newdec(INNER_VAR,(yyvsp[(1) - (4)].type_id),(yyvsp[(2) - (4)].node),(yyvsp[(4) - (4)].node));;}
     break;
 
   case 23:
 
 /* Line 1455 of yacc.c  */
-#line 87 "mc.y"
-    {/*puts("reduce22");*/(yyval.node)=NULL;;}
+#line 88 "mc.y"
+    {puts("reduce22");(yyval.node)=NULL;;}
     break;
 
   case 24:
 
 /* Line 1455 of yacc.c  */
-#line 88 "mc.y"
-    {/*puts("reduce23");*/(yyval.node)=newast(STMTLIST,(yyvsp[(1) - (2)].node),(yyvsp[(2) - (2)].node));;}
+#line 89 "mc.y"
+    {puts("reduce23");(yyval.node)=newast(STMTLIST,(yyvsp[(1) - (2)].node),(yyvsp[(2) - (2)].node));;}
     break;
 
   case 25:
 
 /* Line 1455 of yacc.c  */
-#line 91 "mc.y"
-    {/*puts("reduce24");*/(yyval.node)=(yyvsp[(1) - (2)].node);;}
+#line 92 "mc.y"
+    {puts("reduce24");(yyval.node)=(yyvsp[(1) - (2)].node);;}
     break;
 
   case 26:
 
 /* Line 1455 of yacc.c  */
-#line 92 "mc.y"
-    {/*puts("reduce25");*/(yyval.node)=(yyvsp[(1) - (1)].node);;}
+#line 93 "mc.y"
+    {puts("reduce25");(yyval.node)=(yyvsp[(1) - (1)].node);;}
     break;
 
   case 27:
 
 /* Line 1455 of yacc.c  */
-#line 93 "mc.y"
-    {/*puts("reduce26");*/(yyval.node)=newast(RETURN_NO,(yyvsp[(2) - (3)].node),NULL);;}
+#line 94 "mc.y"
+    {puts("reduce26");(yyval.node)=newast(RETURN_NO,(yyvsp[(2) - (3)].node),NULL);;}
     break;
 
   case 28:
 
 /* Line 1455 of yacc.c  */
-#line 94 "mc.y"
-    {/*puts("reduce27");*/(yyval.node)=newast(BREAK_NO,NULL,NULL);;}
+#line 95 "mc.y"
+    {puts("reduce27");(yyval.node)=newast(BREAK_NO,NULL,NULL);;}
     break;
 
   case 29:
 
 /* Line 1455 of yacc.c  */
-#line 95 "mc.y"
-    {/*puts("reduce28");*/(yyval.node)=newast(CONTINUE_NO,NULL,NULL);;}
+#line 96 "mc.y"
+    {puts("reduce28");(yyval.node)=newast(CONTINUE_NO,NULL,NULL);;}
     break;
 
   case 30:
 
 /* Line 1455 of yacc.c  */
-#line 96 "mc.y"
-    {/*puts("reduce29");*/(yyval.node)=newcondition(IF_NO,(yyvsp[(3) - (5)].node),(yyvsp[(5) - (5)].node),NULL,NULL);;}
+#line 97 "mc.y"
+    {puts("reduce29");(yyval.node)=newcondition(IF_NO,(yyvsp[(3) - (5)].node),(yyvsp[(5) - (5)].node),NULL,NULL);;}
     break;
 
   case 31:
 
 /* Line 1455 of yacc.c  */
-#line 97 "mc.y"
-    {/*puts("reduce30");*/(yyval.node)=newcondition(IF_NO,(yyvsp[(3) - (7)].node),(yyvsp[(5) - (7)].node),(yyvsp[(7) - (7)].node),NULL);;}
+#line 98 "mc.y"
+    {puts("reduce30");(yyval.node)=newcondition(IF_ELSE,(yyvsp[(3) - (7)].node),(yyvsp[(5) - (7)].node),(yyvsp[(7) - (7)].node),NULL);;}
     break;
 
   case 32:
 
 /* Line 1455 of yacc.c  */
-#line 98 "mc.y"
-    {/*puts("reduce31");*/(yyval.node)=newcondition(SWITCH_NO,(yyvsp[(3) - (8)].node),(yyvsp[(6) - (8)].node),(yyvsp[(7) - (8)].node),NULL);;}
+#line 99 "mc.y"
+    {puts("reduce31");(yyval.node)=newcondition(SWITCH_NO,(yyvsp[(3) - (8)].node),(yyvsp[(6) - (8)].node),(yyvsp[(7) - (8)].node),NULL);;}
     break;
 
   case 33:
 
 /* Line 1455 of yacc.c  */
-#line 99 "mc.y"
-    {/*puts("reduce32");*/(yyval.node)=newast(WHILE_NO,(yyvsp[(3) - (5)].node),(yyvsp[(5) - (5)].node));;}
+#line 100 "mc.y"
+    {puts("reduce32");(yyval.node)=newast(WHILE_NO,(yyvsp[(3) - (5)].node),(yyvsp[(5) - (5)].node));;}
     break;
 
   case 34:
 
 /* Line 1455 of yacc.c  */
-#line 100 "mc.y"
-    {/*puts("reduce33");*/(yyval.node)=newcondition(FOR_NO,(yyvsp[(3) - (9)].node),(yyvsp[(5) - (9)].node),(yyvsp[(7) - (9)].node),(yyvsp[(9) - (9)].node));;}
+#line 101 "mc.y"
+    {puts("reduce33");(yyval.node)=newcondition(FOR_NO,(yyvsp[(3) - (9)].node),(yyvsp[(5) - (9)].node),(yyvsp[(7) - (9)].node),(yyvsp[(9) - (9)].node));;}
     break;
 
   case 35:
 
 /* Line 1455 of yacc.c  */
-#line 104 "mc.y"
-    {/*puts("reduce34");*/(yyval.node)=newcondition(CASE_NO,(yyvsp[(2) - (4)].node),(yyvsp[(4) - (4)].node),NULL,NULL);;}
+#line 105 "mc.y"
+    {puts("reduce34");(yyval.node)=newcondition(CASE_NO,(yyvsp[(2) - (4)].node),(yyvsp[(4) - (4)].node),NULL,NULL);;}
     break;
 
   case 36:
 
 /* Line 1455 of yacc.c  */
-#line 105 "mc.y"
-    {/*puts("reduce35");*/(yyval.node)=newcondition(CASE_NO,(yyvsp[(2) - (5)].node),(yyvsp[(4) - (5)].node),(yyvsp[(5) - (5)].node),NULL);;}
+#line 106 "mc.y"
+    {puts("reduce35");(yyval.node)=newcondition(CASE_NO,(yyvsp[(2) - (5)].node),(yyvsp[(4) - (5)].node),(yyvsp[(5) - (5)].node),NULL);;}
     break;
 
   case 37:
 
 /* Line 1455 of yacc.c  */
-#line 107 "mc.y"
-    {/*puts("reduce36");*/(yyval.node)=NULL;;}
+#line 108 "mc.y"
+    {puts("reduce36");(yyval.node)=NULL;;}
     break;
 
   case 38:
 
 /* Line 1455 of yacc.c  */
-#line 108 "mc.y"
-    {/*puts("reduce37");*/(yyval.node)=newast(DEFAULT_NO,(yyvsp[(3) - (3)].node),NULL);;}
+#line 109 "mc.y"
+    {puts("reduce37");(yyval.node)=newast(DEFAULT_NO,(yyvsp[(3) - (3)].node),NULL);;}
     break;
 
   case 39:
 
 /* Line 1455 of yacc.c  */
-#line 111 "mc.y"
-    {/*puts("reduce38");*/(yyval.node)=NULL;;}
+#line 112 "mc.y"
+    {puts("reduce38");(yyval.node)=NULL;;}
     break;
 
   case 40:
 
 /* Line 1455 of yacc.c  */
-#line 112 "mc.y"
-    {/*puts("reduce39");*/(yyval.node)=(yyvsp[(1) - (1)].node);;}
+#line 113 "mc.y"
+    {puts("reduce39");(yyval.node)=(yyvsp[(1) - (1)].node);;}
     break;
 
   case 41:
 
 /* Line 1455 of yacc.c  */
-#line 115 "mc.y"
-    {/*puts("reduce40");*/(yyval.node)=newast(ASSIGN,(yyvsp[(1) - (3)].node),(yyvsp[(3) - (3)].node));;}
+#line 116 "mc.y"
+    {puts("reduce40");(yyval.node)=newast(ASSIGN,(yyvsp[(1) - (3)].node),(yyvsp[(3) - (3)].node));;}
     break;
 
   case 42:
 
 /* Line 1455 of yacc.c  */
-#line 116 "mc.y"
-    {/*puts("reduce41");*/(yyval.node)=newast(AND_NO,(yyvsp[(1) - (3)].node),(yyvsp[(3) - (3)].node));;}
+#line 117 "mc.y"
+    {puts("reduce41");(yyval.node)=newast(AND_NO,(yyvsp[(1) - (3)].node),(yyvsp[(3) - (3)].node));;}
     break;
 
   case 43:
 
 /* Line 1455 of yacc.c  */
-#line 117 "mc.y"
-    {/*puts("reduce42");*/(yyval.node)=newast(OR_NO,(yyvsp[(1) - (3)].node),(yyvsp[(3) - (3)].node));;}
+#line 118 "mc.y"
+    {puts("reduce42");(yyval.node)=newast(OR_NO,(yyvsp[(1) - (3)].node),(yyvsp[(3) - (3)].node));;}
     break;
 
   case 44:
 
 /* Line 1455 of yacc.c  */
-#line 118 "mc.y"
-    {/*puts("reduce43");*/(yyval.node)=newast(GR_NO,(yyvsp[(1) - (3)].node),(yyvsp[(3) - (3)].node));;}
+#line 119 "mc.y"
+    {puts("reduce43");(yyval.node)=newast(GR_NO,(yyvsp[(1) - (3)].node),(yyvsp[(3) - (3)].node));;}
     break;
 
   case 45:
 
 /* Line 1455 of yacc.c  */
-#line 119 "mc.y"
-    {/*puts("reduce43");*/(yyval.node)=newast(LS_NO,(yyvsp[(1) - (3)].node),(yyvsp[(3) - (3)].node));;}
+#line 120 "mc.y"
+    {puts("reduce43");(yyval.node)=newast(LS_NO,(yyvsp[(1) - (3)].node),(yyvsp[(3) - (3)].node));;}
     break;
 
   case 46:
 
 /* Line 1455 of yacc.c  */
-#line 120 "mc.y"
-    {/*puts("reduce43");*/(yyval.node)=newast(GE_NO,(yyvsp[(1) - (3)].node),(yyvsp[(3) - (3)].node));;}
+#line 121 "mc.y"
+    {puts("reduce43");(yyval.node)=newast(GE_NO,(yyvsp[(1) - (3)].node),(yyvsp[(3) - (3)].node));;}
     break;
 
   case 47:
 
 /* Line 1455 of yacc.c  */
-#line 121 "mc.y"
-    {/*puts("reduce43");*/(yyval.node)=newast(LE_NO,(yyvsp[(1) - (3)].node),(yyvsp[(3) - (3)].node));;}
+#line 122 "mc.y"
+    {puts("reduce43");(yyval.node)=newast(LE_NO,(yyvsp[(1) - (3)].node),(yyvsp[(3) - (3)].node));;}
     break;
 
   case 48:
 
 /* Line 1455 of yacc.c  */
-#line 122 "mc.y"
-    {/*puts("reduce43");*/(yyval.node)=newast(EQ_NO,(yyvsp[(1) - (3)].node),(yyvsp[(3) - (3)].node));;}
+#line 123 "mc.y"
+    {puts("reduce43");(yyval.node)=newast(EQ_NO,(yyvsp[(1) - (3)].node),(yyvsp[(3) - (3)].node));;}
     break;
 
   case 49:
 
 /* Line 1455 of yacc.c  */
-#line 123 "mc.y"
-    {/*puts("reduce43");*/(yyval.node)=newast(NE_NO,(yyvsp[(1) - (3)].node),(yyvsp[(3) - (3)].node));;}
+#line 124 "mc.y"
+    {puts("reduce43");(yyval.node)=newast(NE_NO,(yyvsp[(1) - (3)].node),(yyvsp[(3) - (3)].node));;}
     break;
 
   case 50:
 
 /* Line 1455 of yacc.c  */
-#line 124 "mc.y"
-    {/*puts("reduce44");*/(yyval.node)=newast(ADD,(yyvsp[(1) - (3)].node),(yyvsp[(3) - (3)].node));;}
+#line 125 "mc.y"
+    {puts("reduce44");(yyval.node)=newast(ADD,(yyvsp[(1) - (3)].node),(yyvsp[(3) - (3)].node));;}
     break;
 
   case 51:
 
 /* Line 1455 of yacc.c  */
-#line 125 "mc.y"
-    {/*puts("reduce45");*/(yyval.node)=newast(MINUS,(yyvsp[(1) - (3)].node),(yyvsp[(3) - (3)].node));;}
+#line 126 "mc.y"
+    {puts("reduce45");(yyval.node)=newast(MINUS,(yyvsp[(1) - (3)].node),(yyvsp[(3) - (3)].node));;}
     break;
 
   case 52:
 
 /* Line 1455 of yacc.c  */
-#line 126 "mc.y"
-    {/*puts("reduce46");*/(yyval.node)=newast(MUL,(yyvsp[(1) - (3)].node),(yyvsp[(3) - (3)].node));;}
+#line 127 "mc.y"
+    {puts("reduce46");(yyval.node)=newast(MUL,(yyvsp[(1) - (3)].node),(yyvsp[(3) - (3)].node));;}
     break;
 
   case 53:
 
 /* Line 1455 of yacc.c  */
-#line 127 "mc.y"
-    {/*puts("reduce47");*/(yyval.node)=newast(DIV,(yyvsp[(1) - (3)].node),(yyvsp[(3) - (3)].node));;}
+#line 128 "mc.y"
+    {puts("reduce47");(yyval.node)=newast(DIV,(yyvsp[(1) - (3)].node),(yyvsp[(3) - (3)].node));;}
     break;
 
   case 54:
 
 /* Line 1455 of yacc.c  */
-#line 128 "mc.y"
-    {/*puts("reduce48");*/(yyval.node)=(yyvsp[(2) - (3)].node);;}
+#line 129 "mc.y"
+    {puts("reduce48");(yyval.node)=(yyvsp[(2) - (3)].node);;}
     break;
 
   case 55:
 
 /* Line 1455 of yacc.c  */
-#line 129 "mc.y"
-    {/*puts("reduce49");*/(yyval.node)=newast(UMINUS_NO,(yyvsp[(2) - (2)].node),NULL);;}
+#line 130 "mc.y"
+    {puts("reduce49");(yyval.node)=newast(UMINUS_NO,(yyvsp[(2) - (2)].node),NULL);;}
     break;
 
   case 56:
 
 /* Line 1455 of yacc.c  */
-#line 130 "mc.y"
-    {/*puts("reduce50");*/(yyval.node)=newast(NOT,(yyvsp[(2) - (2)].node),NULL);;}
+#line 131 "mc.y"
+    {puts("reduce50");(yyval.node)=newast(NOT,(yyvsp[(2) - (2)].node),NULL);;}
     break;
 
   case 57:
 
 /* Line 1455 of yacc.c  */
-#line 131 "mc.y"
-    {/*puts("reduce51");*/(yyval.node)=newfun(FUN_CALL,(yyvsp[(1) - (4)].type_id),(yyvsp[(3) - (4)].node));;}
+#line 132 "mc.y"
+    {puts("reduce51");(yyval.node)=newfun(FUN_CALL,(yyvsp[(1) - (4)].type_id),(yyvsp[(3) - (4)].node));;}
     break;
 
   case 58:
 
 /* Line 1455 of yacc.c  */
-#line 132 "mc.y"
-    {/*puts("reduce52");*/(yyval.node)=newele(ELE_NO,(yyvsp[(1) - (4)].type_id),(yyvsp[(3) - (4)].node));;}
+#line 133 "mc.y"
+    {puts("reduce52");(yyval.node)=newele(ELE_NO,(yyvsp[(1) - (4)].type_id),(yyvsp[(3) - (4)].node));;}
     break;
 
   case 59:
 
 /* Line 1455 of yacc.c  */
-#line 133 "mc.y"
-    {/*puts("reduce53");*/(yyval.node)=newnum(ID_NO);strcpy(((struct num*)(yyval.node))->numval.string,(yyvsp[(1) - (1)].type_id));;}
+#line 134 "mc.y"
+    {puts("reduce53");(yyval.node)=newnum(ID_NO);strcpy(((struct num*)(yyval.node))->numval.string,(yyvsp[(1) - (1)].type_id));;}
     break;
 
   case 60:
 
 /* Line 1455 of yacc.c  */
-#line 134 "mc.y"
-    {/*puts("reduce54");*/(yyval.node)=newnum(CHAR_NO);((struct num*)(yyval.node))->numval.ch=(yyvsp[(1) - (1)].type_char);;}
+#line 135 "mc.y"
+    {puts("reduce54");(yyval.node)=newnum(CHAR_NO);((struct num*)(yyval.node))->numval.ch=(yyvsp[(1) - (1)].type_char);;}
     break;
 
   case 61:
 
 /* Line 1455 of yacc.c  */
-#line 135 "mc.y"
-    {/*puts("reduce55");*/(yyval.node)=newnum(STRING_NO);strcpy(((struct num*)(yyval.node))->numval.string,(yyvsp[(1) - (1)].type_id));;}
+#line 136 "mc.y"
+    {puts("reduce55");(yyval.node)=newnum(STRING_NO);strcpy(((struct num*)(yyval.node))->numval.string,(yyvsp[(1) - (1)].type_id));;}
     break;
 
   case 62:
 
 /* Line 1455 of yacc.c  */
-#line 136 "mc.y"
-    {/*puts("reduce56");*/(yyval.node)=newnum(INT_NO);((struct num*)(yyval.node))->numval.intval=(yyvsp[(1) - (1)].type_int);;}
+#line 137 "mc.y"
+    {puts("reduce56");(yyval.node)=newnum(INT_NO);((struct num*)(yyval.node))->numval.intval=(yyvsp[(1) - (1)].type_int);;}
     break;
 
   case 63:
 
 /* Line 1455 of yacc.c  */
-#line 137 "mc.y"
-    {/*puts("reduce57");*/(yyval.node)=newnum(FLOAT_NO);((struct num*)(yyval.node))->numval.floatval=(yyvsp[(1) - (1)].type_float);;}
+#line 138 "mc.y"
+    {puts("reduce57");(yyval.node)=newnum(FLOAT_NO);((struct num*)(yyval.node))->numval.floatval=(yyvsp[(1) - (1)].type_float);;}
     break;
 
   case 64:
 
 /* Line 1455 of yacc.c  */
-#line 140 "mc.y"
+#line 141 "mc.y"
     {(yyval.node)=NULL;}
     break;
 
   case 65:
 
 /* Line 1455 of yacc.c  */
-#line 141 "mc.y"
-    {/*puts("reduce58");*/(yyval.node)=newast(ARGS,(yyvsp[(1) - (1)].node),NULL);;}
+#line 142 "mc.y"
+    {puts("reduce58");(yyval.node)=newast(ARGS,(yyvsp[(1) - (1)].node),NULL);;}
     break;
 
   case 66:
 
 /* Line 1455 of yacc.c  */
-#line 142 "mc.y"
-    {/*puts("reduce59");*/(yyval.node)=newast(ARGS,(yyvsp[(1) - (3)].node),(yyvsp[(3) - (3)].node));;}
+#line 143 "mc.y"
+    {puts("reduce59");(yyval.node)=newast(ARGS,(yyvsp[(1) - (3)].node),(yyvsp[(3) - (3)].node));;}
     break;
 
 
 
 /* Line 1455 of yacc.c  */
-#line 2054 "mc.tab.c"
+#line 2055 "mc.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -2269,7 +2270,7 @@ yyreturn:
 
 
 /* Line 1675 of yacc.c  */
-#line 144 "mc.y"
+#line 145 "mc.y"
 
 
 int main(int argc, char *argv[]){
@@ -2277,6 +2278,10 @@ int main(int argc, char *argv[]){
 	if (!yyin) return 0;
 	yylineno=1;
 	yyparse();
+    //初始化
+    initsymtab();
+    semantic(ptree);
+    printcode(ptree);
 	return 0;
 	}
 

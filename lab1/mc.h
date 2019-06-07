@@ -16,7 +16,9 @@ enum {
     FUN_CALL,ELE_NO,ID_NO,CHAR_NO,STRING_NO,
     INT_NO,FLOAT_NO,ARGS,CHAR_TYPE,INT_TYPE,
     FLOAT_TYPE,FUN_TYPE,UNKNOWN_TYPE,LOOP,SW_STMT,
-    STR_CONST,PROG
+    STR_CONST,PROG,LABEL,RETURN_OP,GOTO_BREAK,
+    GOTO_UPDATE,JUDGE,GOTO_JUDGE,ASSIGN_OP,
+    FUN_PUBLIC,IF_ELSE,ELSE_JUDGE
 };
 
 union val{
@@ -26,6 +28,7 @@ union val{
     char string[30];
 };
 
+
 struct seman_info{
     int kind;//'V'->variable 'F'->function 'P'->parameter 'A' args
     int level;
@@ -33,11 +36,21 @@ struct seman_info{
     int size;
     int paranum;  //记录函数形参个数
     int stmt_type;//语句类型或者函数返回值类型
+    int judge_num,update_num,end_num;
 };
+
+typedef struct code{
+    int op;
+    struct seman_info var;
+    struct code*next;
+    char name[30];
+    int judge_label_num,update_label_num,end_label_num;
+}code;
 
 typedef struct ast{
     int nodetype;
     struct seman_info sem;
+    struct code* pcode;
     struct ast*l;
     struct ast*r;
 }ast;
@@ -45,6 +58,7 @@ typedef struct ast{
 typedef struct dec{
     int nodetype;
     struct seman_info sem;
+    struct code* pcode;
     ast* l,*r;
     int type;
 }dec;
@@ -52,6 +66,7 @@ typedef struct dec{
 typedef struct var_init{
     int nodetype;
     struct seman_info sem;
+    struct code* pcode;
     ast *l,*r;
     char id[30];
     int idx;
@@ -61,6 +76,7 @@ typedef struct var_init{
 typedef struct fun{
     int nodetype;
     struct seman_info sem;
+    struct code* pcode;
     ast *l,*r;
     int returntype;
     char id[30];
@@ -69,6 +85,7 @@ typedef struct fun{
 typedef struct param{
     int nodetype;
     struct seman_info sem;
+    struct code* pcode;
     ast *l;
     int datatypeid;
     char id[30];
@@ -78,12 +95,14 @@ typedef struct param{
 typedef struct condition{
     int nodetype;
     struct seman_info sem;
+    struct code* pcode;
     ast *a,*b,*c,*d;
 }condition;
 
 typedef struct ele{
     int nodetype;
     struct seman_info sem;
+    struct code* pcode;
     ast* idx;
     char id[30];
 }ele;
@@ -91,6 +110,7 @@ typedef struct ele{
 typedef struct num{
     int nodetype;
     struct seman_info sem;
+    struct code* pcode;
     union val numval;
 }num;
 
@@ -123,5 +143,6 @@ void  display(void* node,int pos);
 void semantic(ast* node);
 void printtype(int typenum);
 void printsymt(int level);
-
+void printcode(ast* node);
+void initsymtab();
 #endif

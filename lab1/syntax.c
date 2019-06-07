@@ -232,6 +232,7 @@ void display(void* node,int pos){
             printf("%*cCONTINUE\n",pos,' ');
             break;
         case IF_NO:
+        case IF_ELSE:
             //debug
             //puts("15");
             printf("%*cIF:\n",pos,' ');
