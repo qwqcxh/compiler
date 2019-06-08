@@ -153,6 +153,7 @@ int main(int argc, char *argv[]){
     initsymtab();
     semantic(ptree);
     printcode(ptree);
+    genasm(ptree);
 	return 0;
 	}
 

@@ -6,7 +6,9 @@ int f(int a){
 
 int main(){
   int i;
-  for(i=1;i<=10;i=i+1){
+  int cnt;
+  cnt = read();
+  for(i=1;i<=cnt;i=i+1){
      write(f(i));
   }
   return 0;

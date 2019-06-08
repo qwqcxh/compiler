@@ -37,13 +37,15 @@ void initsymtab(){
     int idx = insertsym("read",sem);
     symtab[idx].paratype = (int*)malloc(sizeof(int));
     symtab[idx].paratype[0]=INT_TYPE;
-    symtab[idx].paramnum = 1;
+    symtab[idx].paramnum = 0;
     idx = insertsym("write",sem);
     symtab[idx].paratype = (int*)malloc(sizeof(int));
     symtab[idx].paratype[0]=INT_TYPE;
     symtab[idx].paramnum = 1;
+    symtab[idx].size = 4;
 }
-void printsymt(int level){
+void printsymt(int level,int remove){
+    int idx=symidx;
     symidx--;
     printf("符号名  类型     层级   偏移   大小   形参个数\n");
     while(symidx>=0&&symtab[symidx].level==level){
@@ -54,6 +56,7 @@ void printsymt(int level){
         symidx--;
     }
     symidx++;
+    if(!remove) symidx=idx;
 }
 int getsize(int kind){
     if(kind==CHAR_TYPE)
@@ -74,7 +77,7 @@ int newlabel(){
 }
 void semantic(ast* node){
     if(node==NULL) return ;
-    int idx,head,judge_label_num,end_label_num,update_label_num;
+    int idx,i,para_size,head,judge_label_num,end_label_num,update_label_num;
     code* phead,*ptail,*plabel;
     ast* pnode;
     switch(node->nodetype){
@@ -89,7 +92,7 @@ void semantic(ast* node){
             semantic(node->l);
             node->sem.size+=node->l->sem.size; //全局变量需要的空间
             node->pcode=node->l->pcode;//finish pcode
-            printsymt(node->sem.level);
+            printsymt(node->sem.level,0);
             break;
         case EXTERN_VAR://TYPE var_init_list ';'
         case EXTERN_VAR_LIST://TYPE var_init_list ';' declarations;
@@ -265,11 +268,13 @@ void semantic(ast* node){
             node->sem.addr=0;//函数无偏移地址
             idx = insertsym(((fun*)node)->id,node->sem);   //插入符号表
             node->sem.size=0; //此时初始化函数活动记录大小为0
+            para_size = 0;
             if(node->l){      //形参列表非空
                 node->l->sem.level=node->sem.level+1;
                 node->l->sem.addr=node->sem.addr;
                 semantic(node->l);  //语义分析形参列表
                 node->sem.size+=node->l->sem.size;
+                para_size = node->l->sem.size;
                 symtab[idx].paramnum=node->l->sem.paranum; //记录形参个数
                 symtab[idx].paratype=(int*)malloc(sizeof(int)*symtab[idx].paramnum);
                 for(int i=0;i<symtab[idx].paramnum;i++)
@@ -341,7 +346,7 @@ void semantic(ast* node){
                 node->pcode=node->r->pcode; //生成语句列表
             }
             printf("leave 11 node addr is %d size is %d \n",node->sem.addr,node->sem.size);
-            printsymt(node->sem.level);
+            printsymt(node->sem.level,1);
             break;
         case INNER_VAR: //TYPE var_init_list ';' var_declaration
             puts("12");
@@ -685,6 +690,8 @@ void semantic(ast* node){
             phead->op=ASSIGN_OP;
             memcpy(&phead->var,&node->l->sem,sizeof(struct seman_info));
             strcpy(phead->name,((num*)(node->l))->numval.string);
+            //DEBUG
+            printf("!!!ASSIGN DEBUG %s addr is %d\n",phead->name,phead->var.addr);
             mergecode(node->pcode,phead);
             printf("leave 23,a ASSIGN exp!\n");
             break;
@@ -783,6 +790,7 @@ void semantic(ast* node){
                 printf("错误！,变量%s未声明！\n",((num*)node)->numval.string);    
             else {
                 node->sem.kind=symtab[idx].kind;
+                node->sem.addr=symtab[idx].addr;
                 ((num*)node)->pcode=(code*)malloc(sizeof(code));
                 printf("idx is %d\n",idx);
                 memset(node->pcode,0,sizeof(code));
@@ -800,16 +808,17 @@ void semantic(ast* node){
             if(idx==-1) printf("错误！,函数%s尚未声明或定义。\n",((fun*)node)->id);
             else{
                 node->sem.kind = symtab[idx].type;
+                node->sem.size = symtab[idx].size;
                 if(node->l) node->l->pcode=NULL;
                 semantic(node->l);
                 if(node->l==NULL && symtab[idx].paramnum)
-                    printf("错误！函数%s的实参不能为空。\n");
-                else if(node->l->sem.paranum > symtab[idx].paramnum)
+                    printf("错误！函数%s的实参不能为空。\n",((fun*)node)->id);
+                else if(node->l && node->l->sem.paranum > symtab[idx].paramnum)
                     printf("错误！函数%s的实参过多。\n",((fun*)node)->id);
-                else if(node->l->sem.paranum < symtab[idx].paramnum)
+                else if(node->l && node->l->sem.paranum < symtab[idx].paramnum)
                     printf("错误！函数%s的实参过少。\n",((fun*)node)->id);
                 else{
-                    for(head=0,pnode=node->l;head<node->l->sem.paranum;head++){
+                    for(head=0,pnode=node->l;pnode && head<pnode->l->sem.paranum;head++){
                         if(symtab[idx].paratype[head]!=pnode->l->sem.kind)
                             printf("错误！函数%s的实参与形参类型不匹配。\n",((fun*)node)->id);
                         pnode = pnode->r;
@@ -818,13 +827,19 @@ void semantic(ast* node){
                     node->pcode=(code*)malloc(sizeof(code));
                     memset(node->pcode,0,sizeof(code));
                     node->pcode->op = FUN_PUBLIC;
+                    strcpy(node->pcode->name,((fun*)node)->id);
+                    node->pcode->var.size = node->sem.size;//活动记录大小
                     //合并FUN_PUBLIC 和 实参节点
-                    mergecode(node->pcode,node->l->pcode);
+                    if(node->l) mergecode(node->pcode,node->l->pcode);
                     //创建函数调用节点
                     phead=(code*)malloc(sizeof(code));
                     memset(phead,0,sizeof(code));
                     phead->op=FUN_CALL;
                     strcpy(phead->name,((fun*)node)->id);
+                    phead->var.size = node->sem.size;
+                    //debug
+                    for(i=0,phead->var.paranum=0;i<symtab[idx].paramnum;i++)
+                        phead->var.paranum+=getsize(symtab[idx].paratype[i]);
                     mergecode(node->pcode,phead);
                 }
             }
@@ -854,29 +869,10 @@ void semantic(ast* node){
                 else mergecode(node->pcode,node->r->pcode);
                 node->sem.paranum += node->r->sem.paranum;
             }
-            // if(cnt>=symtab[head].paramnum) printf("错误！，数组%s的调用参数过多。\n",symtab[head].id);
-            // else {
-            //     node->l->pcode=NULL;
-            //     semantic(node->l);
-            //     if(node->l->sem.kind!=symtab[head].paratype[cnt]){
-            //         printf("错误！,函数%s的实参与形参不匹配。\n",symtab[head].id);
-            //         break;
-            //     }
-            //     else {
-            //         node->pcode=node->l->pcode;
-            //         if(node->r){ 
-            //             cnt++;
-            //             node->r->pcode=NULL;
-            //             semantic(node->r);
-            //             mergecode(node->pcode,node->r->pcode);
-            //         }
-            //         else if(cnt!=symtab[head].paramnum-1) printf("错误！,函数%s的实参过少。\n",symtab[head].id);
-                    //TEST
-                    printf("!!!TEST ARGS begin\n");
-                    printcode(node);
-                    printf("!!!TEST ARGS finished\n");
-            //     }                    
-            // }
+            //TEST
+            printf("!!!TEST ARGS begin\n");
+            printcode(node);
+            printf("!!!TEST ARGS finished\n");
             printf("leave 35!\n");
             break;
         default: printf("UNKNOWN NODE!!! ");

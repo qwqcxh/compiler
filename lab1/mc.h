@@ -142,7 +142,9 @@ ast* newele(int nodetype,char*id,void* idx);
 void  display(void* node,int pos);
 void semantic(ast* node);
 void printtype(int typenum);
-void printsymt(int level);
+void printsymt(int level,int remove);
 void printcode(ast* node);
 void initsymtab();
+int newlabel();
+void genasm(ast* node);
 #endif
